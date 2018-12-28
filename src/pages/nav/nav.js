@@ -2,10 +2,12 @@ import './index.less';
 import logo from '../../assets/all.png';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Icon, Menu, Row, Col, Button, Drawer } from 'antd';
+import { Layout, Icon, Menu, Row, Col, Button, Drawer, Dropdown, message } from 'antd';
 import Register from '../register/register';
 import Login from '../login/login';
 import { isMobileOrPc } from '../../utils/utils';
+import https from '../../utils/https';
+import urls from '../../utils/urls';
 
 const { Header } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -16,8 +18,35 @@ class Nav extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      //下拉标签
+      loading: false,
+      keyword: '',
+      type: 2, //1 :其他友情链接 2: 是管理员的个人链接 ,‘’ 代表所有链接
+      pageNum: 1,
+      pageSize: 50,
+      list: [],
+      linkList: [],
+      filingList: [
+        {
+          id: 1,
+          name: '2018-12-12',
+          urlId: '/home'
+        },
+        {
+          id: 2,
+          name: '2018-12-12',
+          urlId: '/home'
+        },
+        {
+          id: 3,
+          name: '2018-12-12',
+          urlId: '/home'
+        }
+      ],
+      //导航栏
       isMobile: false,
       visible: false,
+      childrenDrawer: false,
       placement: 'top',
       current: null,
       menuCurrent: '',
@@ -36,8 +65,17 @@ class Nav extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.showDrawer = this.showDrawer.bind(this);
     this.onClose = this.onClose.bind(this);
+    //标签方法
+    this.handleClick = this.handleClick.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.loadLink = this.loadLink.bind(this);
+    this.handleChangeSearchKeyword = this.handleChangeSearchKeyword.bind(this);
   }
+
   componentDidMount() {
+    //标签方法
+    this.handleSearch();
+    this.loadLink();
     if (isMobileOrPc()) {
       this.setState({
         isMobile: true
@@ -46,6 +84,66 @@ class Nav extends Component {
     this.initMenu(this.props.pathname);
   }
 
+  //标签
+  loadLink = () => {
+    https
+      .get(urls.getLinkList, {
+        params: {
+          type: this.state.type,
+          keyword: this.state.keyword,
+          pageNum: this.state.pageNum,
+          pageSize: this.state.pageSize
+        }
+      })
+      .then(res => {
+        if (res.status === 200 && res.data.code === 0) {
+          this.setState({
+            linkList: res.data.data.list
+          });
+        } else {
+          message.error(res.data.message);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  handleChangeSearchKeyword(event) {
+    this.setState({
+      keyword: event.target.value
+    });
+  }
+
+  handleSearch = () => {
+    https
+      .get(urls.getTagList, {
+        params: {
+          keyword: this.state.keyword,
+          pageNum: this.state.pageNum,
+          pageSize: this.state.pageSize
+        }
+      })
+      .then(res => {
+        if (res.status === 200 && res.data.code === 0) {
+          this.setState({
+            list: res.data.data.list
+          });
+        } else {
+          message.error(res.data.message);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  handleClick(event) {
+    this.setState({
+      //   [event.target.name]: event.target.value
+    });
+  }
+
+  //导航栏
   showDrawer = () => {
     this.setState({
       visible: true
@@ -138,7 +236,29 @@ class Nav extends Component {
       nav: key
     });
   }
+
+  showChildrenDrawer = () => {
+    this.setState({
+      childrenDrawer: true
+    });
+  };
+
+  onChildrenDrawerClose = () => {
+    this.setState({
+      childrenDrawer: false
+    });
+  };
+
   render() {
+    //标签
+    const list = this.state.list.map((item, i) => (
+      <Menu.Item>
+        <Link key={item._id} to={`/home?tag_id=${item._id}&tag_name=${item.name}&category_id=`}>
+          <span key={item._id}>{item.name}</span>
+        </Link>
+      </Menu.Item>
+    ));
+    //导航栏
     let userInfo = '';
     if (window.sessionStorage.userInfo) {
       userInfo = JSON.parse(window.sessionStorage.userInfo);
@@ -214,12 +334,21 @@ class Nav extends Component {
                   selectedKeys={[this.state.menuCurrent]}
                   style={{ lineHeight: '64px', borderBottom: 'none' }}
                 >
-                  <Menu.Item key="1">
-                    <Link to="/home">
-                      <Icon type="home" theme="outlined" />
-                      首页
-                    </Link>
-                  </Menu.Item>
+                  <SubMenu
+                    key="1"
+                    title={
+                      <Link to="/home">
+                        <Icon type="home" theme="outlined" />
+                        首页
+                      </Link>
+                    }
+                  >
+                    <MenuItemGroup>
+                      {list}
+                      {console.log(list)}
+                    </MenuItemGroup>
+                  </SubMenu>
+
                   <Menu.Item key="2">
                     <Link to="/hot">
                       <Icon type="fire" theme="outlined" />
@@ -296,9 +425,24 @@ class Nav extends Component {
           <div className="drawer">
             <p onClick={this.onClose}>
               <Link to="/home">
-                <Icon type="home" /> 首页
+                <div onClick={this.showChildrenDrawer}>
+                  <Icon type="home" /> 首页
+                </div>
               </Link>
             </p>
+            <Drawer
+              title="标签"
+              width={100}
+              closable={false}
+              onClose={this.onChildrenDrawerClose}
+              visible={this.state.childrenDrawer}
+            >
+              <p>
+                首页
+                {console.log(this.state.list)}
+              </p>
+            </Drawer>
+
             <p onClick={this.onClose}>
               <Link to="/hot">
                 <Icon type="fire" onClick={this.showLoginModal} /> 热门

@@ -158,13 +158,7 @@ class SliderRight extends Component {
           <div className="title">标签云</div>
           {list}
         </div>
-        <Search
-          placeholder="请输入标签名"
-          value={this.state.keyword}
-          onSearch={this.handleSearch}
-          onChange={this.handleChangeSearchKeyword}
-          style={{ width: 260 }}
-        />
+
         {/* <div className="classification">
 					<div className="title">文章归档</div>
 					{filingList}

@@ -188,7 +188,7 @@ class Articles extends Component {
     return (
       <div className="left">
         <Search
-          placeholder="请输入菜名"
+          placeholder="请输入菜名/主要食材"
           value={this.state.keyword}
           onSearch={this.handleSearch}
           onChange={this.handleChangeSearchKeyword}

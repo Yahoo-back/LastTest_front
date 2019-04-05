@@ -1,33 +1,34 @@
 // url的链接
 export const urls = {
-    login: "login",
-    logout: "logout",
-    register: "register",
+  login: 'login',
+  logout: 'logout',
+  register: 'register',
 
-    addComment: 'addComment',
-    addThirdComment: 'addThirdComment',
-    getCommentList: 'getCommentList',
+  addComment: 'addComment',
+  addThirdComment: 'addThirdComment',
+  getCommentList: 'getCommentList',
 
-    getArticleList: 'getArticleList',
-    likeArticle: 'likeArticle',
-    getArticleDetail: 'getArticleDetail',
+  getArticleList: 'getArticleList',
+  likeArticle: 'likeArticle',
+  getArticleDetail: 'getArticleDetail',
 
-    addMessage: 'addMessage',
-    getMessageList: 'getMessageList',
-    getMessageDetail: 'getMessageDetail',
+  addMessage: 'addMessage',
+  getMessageList: 'getMessageList',
+  getMessageDetail: 'getMessageDetail',
 
-    getLinkList: 'getLinkList',
-    
-    getTagList: 'getTagList',
+  getLinkList: 'getLinkList',
 
-    getCategoryList: 'getCategoryList',
+  getTagList: 'getTagList',
 
-    getTimeAxisList: 'getTimeAxisList',
-    getTimeAxisDetail: 'getTimeAxisDetail',
+  getNewsList: 'getNewsList',
+  getNewsDetail: 'getNewsDetail',
 
-  };
-  
-  export default urls;
-  
-  
-  
+  getNewsTagList: 'getNewsTagList',
+
+  getCategoryList: 'getCategoryList',
+
+  getTimeAxisList: 'getTimeAxisList',
+  getTimeAxisDetail: 'getTimeAxisDetail'
+};
+
+export default urls;

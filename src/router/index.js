@@ -30,8 +30,8 @@ let config = [
     })
   },
   {
-    name: 'timeLine',
-    path: '/timeLine',
+    name: 'news',
+    path: '/news',
     exact: true,
     component: Loadable({
       loader: () => import('../pages/timeLine/timeLine.js'),

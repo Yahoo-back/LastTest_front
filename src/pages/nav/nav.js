@@ -168,15 +168,15 @@ class Nav extends Component {
     } else if (name === '/hot') {
       key = '2';
       navTitle = '热门菜谱';
-    } else if (name === '/timeLine') {
+    } else if (name === '/news') {
       key = '3';
-      navTitle = '资讯';
+      navTitle = '健康资讯';
     } else if (name === '/message') {
       key = '4';
       navTitle = '留言';
     } else if (name === '/about') {
       key = '5';
-      navTitle = '关于我';
+      navTitle = '关于';
     } else if (name === '/articleDetail') {
       key = '6';
       navTitle = '菜谱详情';
@@ -356,7 +356,7 @@ class Nav extends Component {
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="3">
-                    <Link to="/timeLine">
+                    <Link to="/news">
                       <Icon type="hourglass" theme="outlined" />
                       健康资讯
                     </Link>
@@ -445,12 +445,12 @@ class Nav extends Component {
 
             <p onClick={this.onClose}>
               <Link to="/hot">
-                <Icon type="fire" onClick={this.showLoginModal} /> 热门
+                <Icon type="fire" onClick={this.showLoginModal} /> 热门菜谱
               </Link>
             </p>
             <p onClick={this.onClose}>
-              <Link to="/timeLine">
-                <Icon type="hourglass" onClick={this.showLoginModal} /> 资讯
+              <Link to="/news">
+                <Icon type="hourglass" onClick={this.showLoginModal} /> 健康资讯
               </Link>
             </p>
             <p onClick={this.onClose}>

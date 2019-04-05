@@ -3,7 +3,6 @@ import { Icon, Avatar, message, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import https from '../../utils/https';
 import urls from '../../utils/urls';
-
 const Search = Input.Search;
 
 class About extends Component {

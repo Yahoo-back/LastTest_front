@@ -70,13 +70,6 @@ class SliderRight extends Component {
 
     return (
       <div className="right">
-        <Search
-          placeholder="请输入菜名"
-          value={this.state.keyword}
-          onSearch={this.handleSearch}
-          onChange={this.handleChangeSearchKeyword}
-          style={{ width: 260 }}
-        />
         <div className="tags">
           <div className="title">菜谱标签</div>
           {list}

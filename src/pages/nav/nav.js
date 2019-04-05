@@ -167,7 +167,7 @@ class Nav extends Component {
       navTitle = '首页';
     } else if (name === '/hot') {
       key = '2';
-      navTitle = '热门';
+      navTitle = '热门菜谱';
     } else if (name === '/timeLine') {
       key = '3';
       navTitle = '资讯';
@@ -352,13 +352,13 @@ class Nav extends Component {
                   <Menu.Item key="2">
                     <Link to="/hot">
                       <Icon type="fire" theme="outlined" />
-                      热门
+                      热门菜谱
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="3">
                     <Link to="/timeLine">
                       <Icon type="hourglass" theme="outlined" />
-                      资讯
+                      健康资讯
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="4">

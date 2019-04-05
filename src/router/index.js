@@ -52,7 +52,7 @@ let config = [
     path: '/about',
     exact: true,
     component: Loadable({
-      loader: () => import('../pages/article/article.js'),
+      loader: () => import('../pages/about/about.js'),
       loading: () => <div />
     })
   },

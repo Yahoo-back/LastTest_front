@@ -40,7 +40,7 @@ class Layouts extends Component {
               )}
             </Layout>
           </Content>
-          <Footer style={{ textAlign: 'center', background: '#fff' }}>全栈修炼 ©2018 Created by BiaoChenXuYing</Footer>
+          <Footer style={{ textAlign: 'center', background: '#fff' }}>Young菜谱网站 ©2018 Created By A Young</Footer>
         </Layout>
         <BackTop />
       </div>

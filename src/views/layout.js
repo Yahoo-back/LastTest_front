@@ -21,9 +21,11 @@ class Layouts extends Component {
   render() {
     let isShowSlider = false;
     let pathName = this.props.location.pathname;
-    if (pathName !== '/articleDetail' && pathName !== '/about' && !isMobileOrPc()) {
-      isShowSlider = true;
-    }
+    //控制界面布局右边标签云显示
+    // if (pathName !== '/articleDetail' && pathName !== '/about' && !isMobileOrPc()) {
+    //   isShowSlider = true;
+    // }
+    isShowSlider = true;
     return (
       <div className="Layouts">
         <Nav pathname={this.props.location.pathname} />

@@ -392,7 +392,9 @@ class Nav extends Component {
                     >
                       <MenuItemGroup>
                         <Menu.Item key="logout">退出</Menu.Item>
-                        <Menu.Item key="logout">个人设置</Menu.Item>
+                        <Menu.Item>
+                          <Link to="/personal">个人设置</Link>
+                        </Menu.Item>
                       </MenuItemGroup>
                     </SubMenu>
                   </Menu>
@@ -457,7 +459,9 @@ class Nav extends Component {
                 <p>{userInfo.name}</p>
                 <p>
                   <Icon type="logout" /> 退出
-                  <Icon type="edit" /> 个人设置{' '}
+                  <Link to="/personal">
+                    <Icon type="edit" /> 个人设置{' '}
+                  </Link>
                 </p>
               </div>
             ) : (

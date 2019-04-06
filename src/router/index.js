@@ -57,6 +57,15 @@ let config = [
     })
   },
   {
+    name: 'personal',
+    path: '/personal',
+    exact: true,
+    component: Loadable({
+      loader: () => import('../pages/personal/personal.js'),
+      loading: () => <div />
+    })
+  },
+  {
     name: 'articleDetail',
     path: '/articleDetail',
     exact: true,

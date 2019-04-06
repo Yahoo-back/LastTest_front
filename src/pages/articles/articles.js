@@ -195,6 +195,9 @@ class Articles extends Component {
           style={{ width: 260 }}
         />
         {this.state.tag_id ? <h3 className="left-title">{this.state.tag_name} 相关的菜谱：</h3> : ''}
+        {
+          //菜谱搜索框查询有问题
+        }
         <ul className="note-list">{this.state.total == 0 ? '' : list}</ul>
         {this.state.isLoading ? <LoadingCom /> : ''}
         {this.state.isLoadEnd ? <LoadEndCom /> : ''}

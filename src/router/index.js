@@ -34,7 +34,7 @@ let config = [
     path: '/news',
     exact: true,
     component: Loadable({
-      loader: () => import('../pages/timeLine/timeLine.js'),
+      loader: () => import('../pages/news/news.js'),
       loading: () => <div />
     })
   },
@@ -62,6 +62,15 @@ let config = [
     exact: true,
     component: Loadable({
       loader: () => import('../pages/article/article.js'),
+      loading: () => <div />
+    })
+  },
+  {
+    name: 'newsDetail',
+    path: '/newsDetail',
+    exact: true,
+    component: Loadable({
+      loader: () => import('../pages/newsDetail/newsDetail.js'),
       loading: () => <div />
     })
   }

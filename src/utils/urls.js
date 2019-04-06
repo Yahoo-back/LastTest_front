@@ -22,6 +22,7 @@ export const urls = {
 
   getNewsList: 'getNewsList',
   getNewsDetail: 'getNewsDetail',
+  likeNews: 'likeNews',
 
   getNewsTagList: 'getNewsTagList',
 

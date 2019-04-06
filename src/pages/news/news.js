@@ -165,18 +165,18 @@ class TimeLineCustom extends Component {
             <img className="img-blur-done" data-src={item.img_url} src={item.img_url} alt="120" />
           </a>
           <div className="content">
-            <Link className="title" target="_blank" to={`/articleDetail?article_id=${item._id}`}>
+            <Link className="title" target="_blank" to={`/newsDetail?news_id=${item._id}`}>
               {item.title}
             </Link>
             <p className="abstract">{item.desc}</p>
             <div className="meta">
-              <Link target="_blank" to={`/articleDetail?article_id=${item._id}`}>
+              <Link target="_blank" to={`/newsDetail?news_id=${item._id}`}>
                 <Icon type="eye" theme="outlined" /> {item.meta.views}
               </Link>{' '}
-              <Link target="_blank" to={`/articleDetail?article_id=${item._id}`}>
+              <Link target="_blank" to={`/newsDetail?news_id=${item._id}`}>
                 <Icon type="message" theme="outlined" /> {item.meta.comments}
               </Link>{' '}
-              <Link target="_blank" to={`/articleDetail?article_id=${item._id}`}>
+              <Link target="_blank" to={`/newsDetail?news_id=${item._id}`}>
                 <Icon type="heart" theme="outlined" /> {item.meta.likes}
               </Link>
               <span className="time">{item.create_time ? timestampToTime(item.create_time) : ''}</span>

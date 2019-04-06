@@ -357,7 +357,7 @@ class Nav extends Component {
                   </Menu.Item>
                   <Menu.Item key="3">
                     <Link to="/news">
-                      <Icon type="hourglass" theme="outlined" />
+                      <Icon type="tags" theme="outlined" />
                       健康资讯
                     </Link>
                   </Menu.Item>
@@ -369,7 +369,7 @@ class Nav extends Component {
                   </Menu.Item>
                   <Menu.Item key="5">
                     <Link to="/about">
-                      <Icon type="user" theme="outlined" />
+                      <Icon type="contacts" theme="outlined" />
                       关于
                     </Link>
                   </Menu.Item>
@@ -392,6 +392,7 @@ class Nav extends Component {
                     >
                       <MenuItemGroup>
                         <Menu.Item key="logout">退出</Menu.Item>
+                        <Menu.Item key="logout">个人设置</Menu.Item>
                       </MenuItemGroup>
                     </SubMenu>
                   </Menu>
@@ -430,19 +431,6 @@ class Nav extends Component {
                 </div>
               </Link>
             </p>
-            <Drawer
-              title="标签"
-              width={100}
-              closable={false}
-              onClose={this.onChildrenDrawerClose}
-              visible={this.state.childrenDrawer}
-            >
-              <p>
-                首页
-                {console.log(this.state.list)}
-              </p>
-            </Drawer>
-
             <p onClick={this.onClose}>
               <Link to="/hot">
                 <Icon type="fire" onClick={this.showLoginModal} /> 热门菜谱
@@ -450,7 +438,7 @@ class Nav extends Component {
             </p>
             <p onClick={this.onClose}>
               <Link to="/news">
-                <Icon type="hourglass" onClick={this.showLoginModal} /> 健康资讯
+                <Icon type="tags" onClick={this.showLoginModal} /> 健康资讯
               </Link>
             </p>
             <p onClick={this.onClose}>
@@ -460,7 +448,7 @@ class Nav extends Component {
             </p>
             <p onClick={this.onClose}>
               <Link to="/about">
-                <Icon type="user" onClick={this.showLoginModal} /> 关于
+                <Icon type="contacts" onClick={this.showLoginModal} /> 关于
               </Link>
             </p>
 
@@ -468,7 +456,8 @@ class Nav extends Component {
               <div onClick={this.handleLogout}>
                 <p>{userInfo.name}</p>
                 <p>
-                  <Icon type="logout" /> 退出{' '}
+                  <Icon type="logout" /> 退出
+                  <Icon type="edit" /> 个人设置{' '}
                 </p>
               </div>
             ) : (

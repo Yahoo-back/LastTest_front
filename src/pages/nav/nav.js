@@ -281,7 +281,7 @@ class Nav extends Component {
           >
             <Row className="container">
               <Col style={{ width: '25%', float: 'left', lineHeight: '64px' }}>
-                <a href="http://biaochenxuying.cn/main.html">
+                <a href="#">
                   <div>
                     <img src={logo} alt="" style={{ width: 130, height: 50 }} />
                   </div>
@@ -319,7 +319,7 @@ class Nav extends Component {
           >
             <Row className="container">
               <Col style={{ width: '150px', float: 'left' }}>
-                <a href="http://biaochenxuying.cn/main.html">
+                <a href="#">
                   <div>
                     <img src={logo} alt="" style={{ width: 130, height: 60 }} />
                   </div>

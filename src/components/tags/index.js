@@ -127,42 +127,11 @@ class SliderRight extends Component {
 
     return (
       <div className="right">
-        {
-          // <Avatar className="right-logo" src={logo} size={130} icon="user" />
-          // <div className="title">BiaoChenXuYing</div>
-        }
-        <div className="right-content">
-          {/* <div className="item">
-						<div className="num">123</div>粉丝<Icon type="right" theme="outlined" />
-					</div>
-					<div className="item">
-						<div className="num">123</div>文章<Icon type="right" theme="outlined" />
-					</div>
-					<div className="item">
-						<div className="num">123</div>字数<Icon type="right" theme="outlined" />
-					</div>
-					<div className="item">
-						<div className="num">123</div>收获喜欢<Icon type="right" theme="outlined" />
-					</div> */}
-        </div>
-        {
-          // <div className="introduce">
-          // 	<div className="title">个人介绍</div>
-          // 	<div className="content">
-          // 		加班到天明，学习到昏厥 ！！！ <br /> 微信公众号：【 BiaoChenXuYing 】 <br /> 分享 WEB 全栈开发等相关的技术文章，热点资源，全栈程序员的成长之路。
-          // 	</div>
-          // <div className="footer">{linkChildren}</div>
-          // </div>
-        }
+        <div className="right-content" />}
         <div className="tags">
           <div className="title">标签云</div>
           {list}
         </div>
-
-        {/* <div className="classification">
-					<div className="title">文章归档</div>
-					{filingList}
-				</div> */}
       </div>
     );
   }

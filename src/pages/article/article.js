@@ -24,7 +24,7 @@ class Articles extends Component {
       type: 1, //文章类型 => 1: 普通文章，2: 简历，3: 管理员介绍
       articleDetail: {
         _id: '',
-        author: 'biaochenxuying',
+        author: '',
         category: [],
         comments: [],
         create_time: '',

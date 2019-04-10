@@ -378,7 +378,6 @@ class Nav extends Component {
               <Col style={{ textAlign: 'right', width: '23y0px', float: 'left' }}>
                 {userInfo ? (
                   <Menu
-                    onClick={this.handleLogout}
                     style={{ width: 220, lineHeight: '64px', display: 'inline-block' }}
                     selectedKeys={[this.state.current]}
                     mode="horizontal"
@@ -391,7 +390,9 @@ class Nav extends Component {
                       }
                     >
                       <MenuItemGroup>
-                        <Menu.Item key="logout">退出</Menu.Item>
+                        <Menu.Item key="logout" onClick={this.handleLogout}>
+                          退出
+                        </Menu.Item>
                         <Menu.Item>
                           <Link to="/personal">个人设置</Link>
                         </Menu.Item>
@@ -455,9 +456,9 @@ class Nav extends Component {
             </p>
 
             {userInfo ? (
-              <div onClick={this.handleLogout}>
+              <div>
                 <p>{userInfo.name}</p>
-                <p>
+                <p onClick={this.handleLogout}>
                   <Icon type="logout" /> 退出
                   <Link to="/personal">
                     <Icon type="edit" /> 个人设置{' '}

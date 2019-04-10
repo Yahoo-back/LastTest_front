@@ -187,13 +187,15 @@ class TimeLineCustom extends Component {
     ));
     return (
       <div className="left">
-        <Search
-          placeholder="请输入与健康相关内容"
-          value={this.state.keyword}
-          onSearch={this.handleSearch}
-          onChange={this.handleChangeSearchKeyword}
-          style={{ width: 260 }}
-        />
+        {
+          // <Search
+          //   placeholder="请输入与健康相关内容"
+          //   value={this.state.keyword}
+          //   onSearch={this.handleSearch}
+          //   onChange={this.handleChangeSearchKeyword}
+          //   style={{ width: 260 }}
+          // />
+        }
         {this.state.newsTag_id ? <h3 className="left-title">{this.state.newsTag_name} 相关的新闻：</h3> : ''}
         <ul className="note-list">{this.state.total == 0 ? '' : list}</ul>
         {this.state.isLoading ? <LoadingCom /> : ''}

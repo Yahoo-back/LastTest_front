@@ -22,7 +22,7 @@ class Layouts extends Component {
     let isShowSlider = false;
     let pathName = this.props.location.pathname;
     //控制界面布局右边标签云显示
-    if (!isMobileOrPc()) {
+    if (pathName !== '/about' && !isMobileOrPc()) {
       isShowSlider = true;
     }
     return (

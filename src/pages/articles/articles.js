@@ -1,6 +1,6 @@
 import './index.less';
 import React, { Component } from 'react';
-import { Icon, Input, message } from 'antd';
+import { Icon, Input, message, Card } from 'antd';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -18,6 +18,7 @@ import {
 /*actions*/
 import { saveArticlesList } from '../../store/actions/articles';
 const Search = Input.Search;
+const { Meta } = Card;
 @connect(
   state => state.getIn(['articles']),
   { saveArticlesList }
@@ -151,6 +152,27 @@ class Articles extends Component {
 
   render() {
     // console.log('blog articlesList:', this.props.articlesList);
+    // const list = this.state.articlesList.map((item, i) => (
+    //   <Card
+    //     style={{ width: 200, height: 200 }}
+    //     cover={<img data-src={item.img_url} src={item.img_url} alt="120" />}
+    //     actions={[
+    //       <Link target="_blank" to={`/articleDetail?article_id=${item._id}`}>
+    //         <Icon type="eye" theme="outlined" /> {item.meta.views}
+    //       </Link>,
+    //       <Link target="_blank" to={`/articleDetail?article_id=${item._id}`}>
+    //         <Icon type="message" theme="outlined" /> {item.meta.comments}
+    //       </Link>,
+    //       <Link target="_blank" to={`/articleDetail?article_id=${item._id}`}>
+    //         <Icon type="heart" theme="outlined" /> {item.meta.likes}
+    //       </Link>
+    //     ]}
+    //   >
+    //     <Link className="title" target="_blank" to={`/articleDetail?article_id=${item._id}`}>
+    //       <Meta title={item.title} description={item.desc} />
+    //     </Link>
+    //   </Card>
+    // ));
     const list = this.state.articlesList.map((item, i) => (
       <ReactCSSTransitionGroup
         key={item._id}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Avatar, message, Input, Form, Upload, Select, Button } from 'antd';
+import { Icon, Avatar, message, Input, Form, Upload, Select, Button, Alert } from 'antd';
 import { Link } from 'react-router-dom';
 import https from '../../utils/https';
 import urls from '../../utils/urls';
@@ -14,11 +14,10 @@ class Personal extends Component {
     let userInfo = '';
     if (window.sessionStorage.userInfo) {
       userInfo = JSON.parse(window.sessionStorage.userInfo);
-      console.log(userInfo);
-      console.log(window.sessionStorage);
     }
     return (
       <div>
+        {userInfo == '' ? <Alert message="登录后才可查看个人信息！" banner /> : ''}
         <Form labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
           <FormItem label="邮箱">
             <Input defaultValue={userInfo.email} />

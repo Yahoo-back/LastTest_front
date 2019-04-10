@@ -11,7 +11,7 @@ class LoadingCom extends Component {
     };
     return (
       <div style={style}>
-        <Spin size="large" />
+        <Spin tip="加载中..." />
       </div>
     );
   }

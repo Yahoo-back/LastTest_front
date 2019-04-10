@@ -176,9 +176,12 @@ class Nav extends Component {
       navTitle = '留言';
     } else if (name === '/about') {
       key = '5';
-      navTitle = '关于';
-    } else if (name === '/articleDetail') {
+      navTitle = '关于我们';
+    } else if (name === '/personal') {
       key = '6';
+      navTitle = '个人中心';
+    } else if (name === '/articleDetail') {
+      key = '7';
       navTitle = '菜谱详情';
     }
     this.setState({
@@ -262,6 +265,8 @@ class Nav extends Component {
     let userInfo = '';
     if (window.sessionStorage.userInfo) {
       userInfo = JSON.parse(window.sessionStorage.userInfo);
+      console.log(userInfo);
+      console.log(window.sessionStorage);
     }
     return (
       <div className="left">
@@ -370,7 +375,13 @@ class Nav extends Component {
                   <Menu.Item key="5">
                     <Link to="/about">
                       <Icon type="contacts" theme="outlined" />
-                      关于
+                      关于我们
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item key="6">
+                    <Link to="/personal">
+                      <Icon type="edit" theme="outlined" />
+                      个人中心
                     </Link>
                   </Menu.Item>
                 </Menu>
@@ -385,7 +396,9 @@ class Nav extends Component {
                     <SubMenu
                       title={
                         <span className="submenu-title-wrapper">
-                          <Icon type="user" /> {userInfo.name}
+                          欢迎：
+                          <Icon type="user" />
+                          {userInfo.name}
                         </span>
                       }
                     >
@@ -394,7 +407,7 @@ class Nav extends Component {
                           退出
                         </Menu.Item>
                         <Menu.Item>
-                          <Link to="/personal">个人设置</Link>
+                          <Link to="/personal">个人中心</Link>
                         </Menu.Item>
                       </MenuItemGroup>
                     </SubMenu>
@@ -424,7 +437,7 @@ class Nav extends Component {
           closable={false}
           onClose={this.onClose}
           visible={this.state.visible}
-          height={295}
+          height={340}
         >
           <div className="drawer">
             <p onClick={this.onClose}>
@@ -451,18 +464,25 @@ class Nav extends Component {
             </p>
             <p onClick={this.onClose}>
               <Link to="/about">
-                <Icon type="contacts" onClick={this.showLoginModal} /> 关于
+                <Icon type="contacts" onClick={this.showLoginModal} /> 关于我们
+              </Link>
+            </p>
+            <p onClick={this.onClose}>
+              <Link to="/personal">
+                <Icon type="edit" onClick={this.showLoginModal} /> 个人中心
               </Link>
             </p>
 
             {userInfo ? (
               <div>
-                <p>{userInfo.name}</p>
+                <p>
+                  欢迎：
+                  <Icon type="user" />
+                  {userInfo.name}
+                </p>
                 <p onClick={this.handleLogout}>
-                  <Icon type="logout" /> 退出
-                  <Link to="/personal">
-                    <Icon type="edit" /> 个人设置{' '}
-                  </Link>
+                  <Icon type="logout" />
+                  退出
                 </p>
               </div>
             ) : (

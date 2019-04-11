@@ -1,5 +1,5 @@
 import './index.less';
-// import logo from '../../assets/userLogo.jpeg';
+import logo from '../../assets/userLogo.jpeg';
 import React, { Component } from 'react';
 import { Avatar, Input, Button } from 'antd';
 // import https from '../../utils/https';
@@ -27,7 +27,7 @@ class Comment extends Component {
     return (
       <div className="comment">
         <a className="avatar" href="">
-          <Avatar className="auth-logo" size={50} icon="user" />
+          <Avatar src={logo} className="auth-logo" size={50} icon="user" />
         </a>
         <h3>{userInfo.name}</h3>
         <TextArea

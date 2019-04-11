@@ -66,8 +66,8 @@ let config = [
     })
   },
   {
-    name: 'articleDetail',
-    path: '/articleDetail',
+    name: 'menuDetail',
+    path: '/menuDetail',
     exact: true,
     component: Loadable({
       loader: () => import('../pages/article/article.js'),

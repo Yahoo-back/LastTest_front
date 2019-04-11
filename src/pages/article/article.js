@@ -122,7 +122,7 @@ class Articles extends Component {
       let userInfo = JSON.parse(window.sessionStorage.userInfo);
       user_id = userInfo._id;
     } else {
-      message.warning('登录才能评论，请先登录！', 1);
+      message.warning('登录后才能点赞评论，请先登录！', 1);
       return;
     }
     this.setState({
@@ -293,7 +293,7 @@ class Articles extends Component {
         </div>
         <div className="heart">
           <Button type="danger" size="large" icon="heart" loading={this.state.isLoading} onClick={this.likeArticle}>
-            给 ta 点鼓励
+            点赞
           </Button>
         </div>
         <Comment

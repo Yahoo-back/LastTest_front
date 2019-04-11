@@ -180,7 +180,7 @@ class Nav extends Component {
     } else if (name === '/personal') {
       key = '6';
       navTitle = '个人中心';
-    } else if (name === '/articleDetail') {
+    } else if (name === '/menuDetail') {
       key = '7';
       navTitle = '菜谱详情';
     }

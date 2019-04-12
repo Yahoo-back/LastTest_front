@@ -19,6 +19,7 @@ export const urls = {
   getLinkList: 'getLinkList',
 
   getTagList: 'getTagList',
+  getMessageList: 'getMessageList',
 
   getNewsList: 'getNewsList',
   getNewsDetail: 'getNewsDetail',

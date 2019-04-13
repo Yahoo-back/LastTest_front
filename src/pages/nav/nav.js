@@ -379,7 +379,7 @@ class Nav extends Component {
                     </Link>
                   </Menu.Item>
                   <Menu.Item key="6">
-                    <Link to="/personal">
+                    <Link to={`/personal?email=${userInfo.email}`}>
                       <Icon type="edit" theme="outlined" />
                       个人中心
                     </Link>
@@ -407,7 +407,7 @@ class Nav extends Component {
                           退出
                         </Menu.Item>
                         <Menu.Item>
-                          <Link to="/personal">个人中心</Link>
+                          <Link to={`/personal?email=${userInfo.email}`}>个人中心</Link>
                         </Menu.Item>
                       </MenuItemGroup>
                     </SubMenu>
@@ -468,7 +468,7 @@ class Nav extends Component {
               </Link>
             </p>
             <p onClick={this.onClose}>
-              <Link to="/personal">
+              <Link to={`/personal?email=${userInfo.email}`}>
                 <Icon type="edit" onClick={this.showLoginModal} /> 个人中心
               </Link>
             </p>

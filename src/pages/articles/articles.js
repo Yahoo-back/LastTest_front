@@ -1,11 +1,17 @@
 import './index.less';
 import React, { Component } from 'react';
-import { Icon, Input, message, Card } from 'antd';
+import { Icon, Input, message, Card, Carousel, Collapse, Row, Col, List, Pagination } from 'antd';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import https from '../../utils/https';
 import urls from '../../utils/urls';
+import banner1  from '../../assets/banner1.jpg';
+import banner7  from '../../assets/banner7.jpg';
+import banner2  from '../../assets/banner2.jpg';
+import banner3 from '../../assets/banner3.jpg';
+import banner4 from '../../assets/banner4.jpg';
+import bannerbj from '../../assets/bannerbj.jpg';
 import LoadingCom from '../loading/loading';
 import LoadEndCom from '../loadEnd/loadEnd';
 import {
@@ -19,6 +25,29 @@ import {
 import { saveArticlesList } from '../../store/actions/articles';
 const Search = Input.Search;
 const { Meta } = Card;
+const data = [
+  {
+    dataIndex: 'title'
+  },
+  {
+    dataIndex: '_id'
+  },
+  {
+    dataIndex: 'desc'
+  },
+  {
+    dataIndex: 'img_url'
+  },
+  {
+    dataIndex: 'likes'
+  },
+  {
+    dataIndex: 'comments'
+  },
+  {
+    dataIndex: 'homeAccountName'
+  }
+];
 @connect(
   state => state.getIn(['articles']),
   { saveArticlesList }
@@ -29,7 +58,7 @@ class Articles extends Component {
     this.state = {
       isLoadEnd: false,
       isLoading: false,
-      keyword: '',
+      keyword: decodeURI(getQueryStringByName('keyword')),
       likes: '', // 是否是热门文章
       state: 1, // 文章发布状态 => 0 草稿，1 已发布,'' 代表所有文章
       tag_id: getQueryStringByName('tag_id'),
@@ -40,7 +69,8 @@ class Articles extends Component {
       articlesList: [],
       list: [],
       total: 0,
-      count: ''
+      count: '',
+      current: ''
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChangeSearchKeyword = this.handleChangeSearchKeyword.bind(this);
@@ -63,7 +93,7 @@ class Articles extends Component {
       this.setState(
         {
           pageNum: 1,
-          keyword: getQueryStringByName('keyword'),
+          keyword: decodeURI(getQueryStringByName('keyword')),
           articlesList: [],
           tag_id: getQueryStringByName('tag_id'),
           tag_name: decodeURI(getQueryStringByName('tag_name')),
@@ -101,12 +131,28 @@ class Articles extends Component {
     };
   }
 
-  handleSearch() {
-    this.setState({
-      isLoading: true
+ handleChangePageParam(pageNum, pageSize) {
+    this.setState(
+      {
+        pageNum,
+        pageSize,
+      },
+      () => {
+        this.handleSearch();
+      }
+    );
+  }
+ 
+      onChange = (current, pageSize) => {
+       this.handleChangePageParam(current, pageSize);
+    };
+
+handleSearch = () => {
+  this.setState({
+      isLoading: true,
     });
     https
-      .get(
+          .get(
         urls.getArticleList,
         {
           params: {
@@ -116,21 +162,21 @@ class Articles extends Component {
             tag_id: this.state.tag_id,
             category_id: this.state.category_id,
             pageNum: this.state.pageNum,
-            pageSize: this.state.pageSize
+            pageSize: this.state.pageSize,
+            current: this.state.current,
+            total: this.state.total,
           }
         },
         { withCredentials: true }
       )
       .then(res => {
-        // console.log(res);
-        let num = this.state.pageNum;
         if (res.status === 200 && res.data.code === 0) {
-          this.setState(preState => ({
-            articlesList: [...preState.articlesList, ...res.data.data.list],
+          this.setState(({
+            articlesList: res.data.data.list,
             total: res.data.data.count,
-            pageNum: ++num,
             isLoading: false
           }));
+          
           if (this.state.total === this.state.articlesList.length) {
             this.setState({
               isLoadEnd: true
@@ -142,7 +188,8 @@ class Articles extends Component {
       .catch(err => {
         console.error(err);
       });
-  }
+  };
+ 
 
   handleChangeSearchKeyword(event) {
     this.setState({
@@ -151,28 +198,6 @@ class Articles extends Component {
   }
 
   render() {
-    // console.log('blog articlesList:', this.props.articlesList);
-    // const list = this.state.articlesList.map((item, i) => (
-    //   <Card
-    //     style={{ width: 200, height: 200 }}
-    //     cover={<img data-src={item.img_url} src={item.img_url} alt="120" />}
-    //     actions={[
-    //       <Link target="_blank" to={`/articleDetail?article_id=${item._id}`}>
-    //         <Icon type="eye" theme="outlined" /> {item.meta.views}
-    //       </Link>,
-    //       <Link target="_blank" to={`/articleDetail?article_id=${item._id}`}>
-    //         <Icon type="message" theme="outlined" /> {item.meta.comments}
-    //       </Link>,
-    //       <Link target="_blank" to={`/articleDetail?article_id=${item._id}`}>
-    //         <Icon type="heart" theme="outlined" /> {item.meta.likes}
-    //       </Link>
-    //     ]}
-    //   >
-    //     <Link className="title" target="_blank" to={`/articleDetail?article_id=${item._id}`}>
-    //       <Meta title={item.title} description={item.desc} />
-    //     </Link>
-    //   </Card>
-    // ));
     const list = this.state.articlesList.map((item, i) => (
       <ReactCSSTransitionGroup
         key={item._id}
@@ -182,7 +207,7 @@ class Articles extends Component {
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={1000}
       >
-        <li key={item._id} className="have-img">
+        <li key={item._id} className="have-img" style={{background: '#cfdfef', marginTop: 30}}>
           <a className="wrap-img" href="/" target="_blank">
             <img className="img-blur-done" data-src={item.img_url} src={item.img_url} alt="120" />
           </a>
@@ -208,21 +233,87 @@ class Articles extends Component {
       </ReactCSSTransitionGroup>
     ));
     return (
-      <div className="left">
-        <Search
-          placeholder="请输入菜名/主要食材"
-          value={this.state.keyword}
-          onSearch={this.handleSearch}
-          onChange={this.handleChangeSearchKeyword}
-          style={{ width: 260 }}
-        />
-        {this.state.tag_id ? <h3 className="left-title">{this.state.tag_name} 相关的菜谱：</h3> : ''}
-        {
-          //菜谱搜索框查询有问题
-        }
-        <ul className="note-list">{this.state.total == 0 ? '' : list}</ul>
-        {this.state.isLoading ? <LoadingCom /> : ''}
-        {this.state.isLoadEnd ? <LoadEndCom /> : ''}
+      <div >
+        <div className="left">
+          <div style={{ display: 'flex', justifyContent: 'right' }}>
+            <Search
+              placeholder="请输入菜名/主要食材"
+              value={this.state.keyword}
+              onSearch={this.handleSearch}
+              onChange={this.handleChangeSearchKeyword}
+              style={{ width: 300 }}
+            />
+          </div>
+          {this.props.location.pathname === '/home' ? (
+            <div className="car" style={{ backgroundImage:`url(${banner1})` }}>
+              <Carousel effect="fade" autoplay >
+                <div className="cari" style={{ backgroundImage:`url(${banner4})`}}>
+                  <img className="imgcar" src={banner4} />
+                </div>
+                <div className="cari" style={{backgroundImage:`url(${banner7})`}}>
+                  <img className="imgcar" src={banner7}  />
+                </div>
+                 <div className="cari" style={{backgroundImage:`url(${banner3})`}}>
+                  <img className="imgcar" src={banner3}  />
+                </div>
+                <div className="cari" style={{backgroundImage:`url(${banner1})`}}>
+                  <img className="imgcar" src={banner1}  />
+                </div>
+              </Carousel>
+            </div>
+          ) : (
+            ''
+          )}
+          {this.state.tag_id ? <h3 className="left-title">{this.state.tag_name} 相关的菜谱：</h3> : ''}
+          <ul className="note-list">
+            {this.state.total == 0 ? (
+              ''
+            ) : this.props.location.pathname == '/home' ? (
+              <List
+                grid={{
+                  gutter: 16,
+                  xs: 1,
+                  sm: 2,
+                  md: 4,
+                  lg: 4,
+                  xl: 4,
+                  xxl: 4
+                }}
+                dataSource={this.state.articlesList}              
+                renderItem={item => (
+                  <List.Item >
+                    <Card
+                      style={{ width: 275, height: 340, margin: '10px auto', background: '#eee'}}
+                      cover={<img style={{ width: 275, height: 200 }} src={item.img_url} />}
+                      actions={[
+                        <Link target="_blank" to={`/menuDetail?article_id=${item._id}`}>
+                          <Icon type="eye" theme="outlined" /> {item.meta.views}
+                        </Link>,
+                        <Link target="_blank" to={`/menuDetail?article_id=${item._id}`}>
+                          <Icon type="message" theme="outlined" /> {item.meta.comments}
+                        </Link>,
+                        <Link target="_blank" to={`/menuDetail?article_id=${item._id}`}>
+                          <Icon type="heart" theme="outlined" /> {item.meta.likes}
+                        </Link>
+                      ]}
+                    >
+                      <Link to={`/menuDetail?article_id=${item._id}`}>
+                        <Meta style={{color: '#607dcc', height: 100}} title={item.title} description={item.desc} />
+                      </Link>
+                    </Card>
+                  </List.Item>
+                )}
+              />
+            ) : (
+              list
+            )}
+          </ul>
+          <Pagination style={{width: '60%', marginLeft:'20%', textAlign: 'center',paddingTop: '30px'}} defaultCurrent={1} onChange={this.onChange} showTotal={total=> `查询结果 ${total} `} pageSize={this.state.pageSize} current={this.state.current} total={this.state.total}/>
+          {this.state.isLoading ? <LoadingCom /> : ''}
+          {this.state.isLoadEnd ? <LoadEndCom /> : ''}
+          
+        </div>
+        
       </div>
     );
   }

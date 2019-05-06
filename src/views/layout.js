@@ -22,7 +22,14 @@ class Layouts extends Component {
     let isShowSlider = false;
     let pathName = this.props.location.pathname;
     //控制界面布局右边标签云显示
-    if (pathName !== '/about' && !isMobileOrPc()) {
+    if (
+      pathName !== '/message' &&
+      pathName !== '/personal' &&
+      pathName !== '/about' &&
+      pathName !== '/' &&
+      pathName !== '/home' &&
+      !isMobileOrPc()
+    ) {
       isShowSlider = true;
     }
     return (
@@ -30,18 +37,18 @@ class Layouts extends Component {
         <Nav pathname={this.props.location.pathname} />
         <Layout className="layout">
           <Content>
-            <Layout style={{ padding: '24px 0', background: '#fff' }}>
+            <Layout style={{ padding: '24px 0', background: '#cfdfef' , height: '100%'}}>
               <Content style={{ padding: '0 24px 0 0', minHeight: 280 }}>{this.props.children}</Content>
               {!isShowSlider ? (
                 ''
               ) : (
-                <Sider width={350} style={{ background: '#fff' }}>
+                <Sider width={350} style={{ background: '#cfdfef' }}>
                   <SliderRight />
                 </Sider>
               )}
             </Layout>
           </Content>
-          <Footer style={{ textAlign: 'center', background: '#fff' }}>Young菜谱网站 ©2018 Created By A Young</Footer>
+          <Footer style={{ textAlign: 'center', width: '100%', height:'100%',background: '#cfdfef' }}>Young菜谱网站 ©2018 Created By A Young</Footer>
         </Layout>
         <BackTop />
       </div>

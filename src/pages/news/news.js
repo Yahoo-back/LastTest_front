@@ -1,6 +1,6 @@
 import './index.less';
 import React, { Component } from 'react';
-import { Icon, Input, message } from 'antd';
+import { Icon, Input, message, Pagination } from 'antd';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -122,12 +122,12 @@ class TimeLineCustom extends Component {
       )
       .then(res => {
         // console.log(res);
-        let num = this.state.pageNum;
+        // let num = this.state.pageNum;
         if (res.status === 200 && res.data.code === 0) {
-          this.setState(preState => ({
-            newsList: [...preState.newsList, ...res.data.data.list],
+          this.setState(({
+            newsList: res.data.data.list,
             total: res.data.data.count,
-            pageNum: ++num,
+            // pageNum: ++num,
             isLoading: false
           }));
           if (this.state.total === this.state.newsList.length) {
@@ -159,8 +159,9 @@ class TimeLineCustom extends Component {
         transitionAppearTimeout={1000}
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={1000}
+        
       >
-        <li key={item._id} className="have-img">
+        <li key={item._id} className="have-img" style={{background:'#cfdfef', marginTop: 30}}>
           <a className="wrap-img" href="/" target="_blank">
             <img className="img-blur-done" data-src={item.img_url} src={item.img_url} alt="120" />
           </a>
@@ -173,9 +174,7 @@ class TimeLineCustom extends Component {
               <Link target="_blank" to={`/newsDetail?news_id=${item._id}`}>
                 <Icon type="eye" theme="outlined" /> {item.meta.views}
               </Link>{' '}
-              <Link target="_blank" to={`/newsDetail?news_id=${item._id}`}>
-                <Icon type="message" theme="outlined" /> {item.meta.comments}
-              </Link>{' '}
+            
               <Link target="_blank" to={`/newsDetail?news_id=${item._id}`}>
                 <Icon type="heart" theme="outlined" /> {item.meta.likes}
               </Link>
@@ -188,16 +187,17 @@ class TimeLineCustom extends Component {
     return (
       <div className="left">
         {
-          // <Search
-          //   placeholder="请输入与健康相关内容"
-          //   value={this.state.keyword}
-          //   onSearch={this.handleSearch}
-          //   onChange={this.handleChangeSearchKeyword}
-          //   style={{ width: 260 }}
-          // />
+          <Search
+            placeholder="请输入与健康相关内容"
+            value={this.state.keyword}
+            onSearch={this.handleSearch}
+            onChange={this.handleChangeSearchKeyword}
+            style={{ width: 300 }}
+          />
         }
         {this.state.newsTag_id ? <h3 className="left-title">{this.state.newsTag_name} 相关的新闻：</h3> : ''}
         <ul className="note-list">{this.state.total == 0 ? '' : list}</ul>
+         <Pagination style={{width: '60%',marginLeft: '20%', textAlign:'center',paddingTop: '30px'}} defaultCurrent={1} onChange={this.onChange} showTotal={total=> `查询结果 ${total} `} pageSize={this.state.pageSize} current={this.state.current} total={this.state.total}/>
         {this.state.isLoading ? <LoadingCom /> : ''}
         {this.state.isLoadEnd ? <LoadEndCom /> : ''}
       </div>

@@ -29,8 +29,8 @@ const customPanelStyle = {
 class About extends Component {
   render() {
     return (
-      <div style={{ padding: 20 }}>
-        <h2>Young菜谱网</h2>
+      <div style={{ padding: 20, width: '96%',  margin: '0 auto' }}>
+        <h2>Young菜谱网--提供给年轻人一个学习简单营养食谱的平台</h2>
         <Row>
           <Col xs={{ span: 24 }} lg={{ span: 8 }}>
             <Card

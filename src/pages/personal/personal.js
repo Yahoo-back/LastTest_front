@@ -87,8 +87,8 @@ class Personal extends Component {
 
     const reply_list = this.state.messageDetail.reply_list.map((item, i) => <span key={item.id}>{item.content}</span>);
     return (
-      <div>
-        {userInfo == '' ? <Alert message="登录后才可查看个人信息！" banner /> : ''}
+      <div style={{width: '80%', height: '100%',marginLeft: '10%'}}>
+       {userInfo == '' ? <Alert message="登录后才可查看个人信息！" banner /> : ''}
         <Form labelCol={{ span: 5 }} wrapperCol={{ span: 12 }}>
           <FormItem label="邮箱">
             <Input defaultValue={userInfo.email} />
@@ -120,8 +120,9 @@ class Personal extends Component {
                 : ''}
             </p>
           </FormItem>
+          
           <Button type="primary">修改个人信息</Button>
-        </Form>
+          </Form>
       </div>
     );
   }

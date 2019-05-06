@@ -184,6 +184,10 @@ class Nav extends Component {
       key = '7';
       navTitle = '菜谱详情';
     }
+    else if (name === '/newsDetail') {
+      key = '8';
+      navTitle = '健康资讯详情';
+    }
     this.setState({
       navTitle,
       menuCurrent: key
@@ -256,7 +260,7 @@ class Nav extends Component {
     //标签
     const list = this.state.list.map((item, i) => (
       <Menu.Item>
-        <Link key={item._id} to={`/home?tag_id=${item._id}&tag_name=${item.name}&category_id=`}>
+        <Link key={item._id} to={`/home?tag_id=${item._id}&tag_name=${item.name}`}>
           <span key={item._id}>{item.name}</span>
         </Link>
       </Menu.Item>
@@ -280,7 +284,7 @@ class Nav extends Component {
               width: '100%',
               height: '64px',
               float: 'left',
-              backgroundColor: 'white',
+              backgroundColor: '#cfdfef;',
               borderBottom: '1px solid #eee'
             }}
           >
@@ -292,10 +296,10 @@ class Nav extends Component {
                   </div>
                 </a>
               </Col>
-              <Col style={{ textAlign: 'center', width: '50%', float: 'left' }}>
+              <Col style={{ textAlign: 'center', width: '62%', float: 'left' }}>
                 <div className="nav-title"> {this.state.navTitle} </div>
               </Col>
-              <Col style={{ textAlign: 'right', width: '25%', float: 'left' }}>
+              <Col style={{ textAlign: 'right', width: '13%', float: 'left' }}>
                 <div>
                   {/* <a className='user-name'>{userInfo.name}</a> */}
                   <Icon
@@ -314,11 +318,12 @@ class Nav extends Component {
               position: 'fixed',
               zIndex: 1,
               top: 0,
+              backgroundColor: '#cfdfef',
               width: '100%',
               minWidth: '1200px',
               height: '66px',
               float: 'left',
-              backgroundColor: 'white',
+              // backgroundColor: 'white',
               borderBottom: '1px solid #eee'
             }}
           >
@@ -326,7 +331,7 @@ class Nav extends Component {
               <Col style={{ width: '150px', float: 'left' }}>
                 <a href="#">
                   <div>
-                    <img src={logo} alt="" style={{ width: 130, height: 60 }} />
+                    <img src={logo} alt="logo" style={{ width: 130, height: 60 }} />
                   </div>
                 </a>
               </Col>
@@ -337,7 +342,7 @@ class Nav extends Component {
                   defaultSelectedKeys={['1']}
                   onClick={this.handleMenu}
                   selectedKeys={[this.state.menuCurrent]}
-                  style={{ lineHeight: '64px', borderBottom: 'none' }}
+                  style={{ lineHeight: '64px', borderBottom: 'none',backgroundColor: '#cfdfef'}}
                 >
                   <SubMenu
                     key="1"
@@ -386,10 +391,10 @@ class Nav extends Component {
                   </Menu.Item>
                 </Menu>
               </Col>
-              <Col style={{ textAlign: 'right', width: '23y0px', float: 'left' }}>
+              <Col style={{ textAlign: 'right', width: '23y0px', float: 'left',backgroundColor: '#cfdfef' }}>
                 {userInfo ? (
                   <Menu
-                    style={{ width: 220, lineHeight: '64px', display: 'inline-block' }}
+                    style={{ width: 220, lineHeight: '64px', display: 'inline-block',backgroundColor: '#cfdfef' }}
                     selectedKeys={[this.state.current]}
                     mode="horizontal"
                   >

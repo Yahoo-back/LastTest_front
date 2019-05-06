@@ -42,4 +42,30 @@ export function getArticlesList({ keyword, likes, state, pageNum, pageSize }) {
 	};
 }
 
+export function queryArticle({ keyword, likes, state, pageNum, pageSize }) {
+	return dispatch => {
+		axios
+			.get('/api/queryArticle', {
+				params: {
+					keyword,
+					likes,
+					state,
+					pageNum,
+					pageSize,
+				},
+			})
+			.then(res => {
+        		// console.log('res :', res.data)
+				if (res.status === 200 && res.data.code === 0) {
+					dispatch(saveArticlesList(res.data));
+				} else {
+					// dispatch(listFailure(res.data.msg));
+				}
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	};
+}
+
 

@@ -7,7 +7,7 @@ export const urls = {
   addComment: 'addComment',
   addThirdComment: 'addThirdComment',
   getCommentList: 'getCommentList',
-
+  queryArticle: 'queryArticle',
   getArticleList: 'getArticleList',
   likeArticle: 'likeArticle',
   getArticleDetail: 'getArticleDetail',

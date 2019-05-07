@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import https from '../../utils/https';
 import urls from '../../utils/urls';
-import banner1  from '../../assets/banner1.jpg';
-import banner7  from '../../assets/banner7.jpg';
-import banner2  from '../../assets/banner2.jpg';
+import banner1 from '../../assets/banner1.jpg';
+import banner7 from '../../assets/banner7.jpg';
+import banner2 from '../../assets/banner2.jpg';
 import banner3 from '../../assets/banner3.jpg';
 import banner4 from '../../assets/banner4.jpg';
 import bannerbj from '../../assets/bannerbj.jpg';
@@ -25,29 +25,6 @@ import {
 import { saveArticlesList } from '../../store/actions/articles';
 const Search = Input.Search;
 const { Meta } = Card;
-const data = [
-  {
-    dataIndex: 'title'
-  },
-  {
-    dataIndex: '_id'
-  },
-  {
-    dataIndex: 'desc'
-  },
-  {
-    dataIndex: 'img_url'
-  },
-  {
-    dataIndex: 'likes'
-  },
-  {
-    dataIndex: 'comments'
-  },
-  {
-    dataIndex: 'homeAccountName'
-  }
-];
 @connect(
   state => state.getIn(['articles']),
   { saveArticlesList }
@@ -131,28 +108,12 @@ class Articles extends Component {
     };
   }
 
- handleChangePageParam(pageNum, pageSize) {
-    this.setState(
-      {
-        pageNum,
-        pageSize,
-      },
-      () => {
-        this.handleSearch();
-      }
-    );
-  }
- 
-      onChange = (current, pageSize) => {
-       this.handleChangePageParam(current, pageSize);
-    };
-
-handleSearch = () => {
-  this.setState({
-      isLoading: true,
+  handleSearch = () => {
+    this.setState({
+      // isLoading: true
     });
     https
-          .get(
+      .get(
         urls.getArticleList,
         {
           params: {
@@ -164,19 +125,20 @@ handleSearch = () => {
             pageNum: this.state.pageNum,
             pageSize: this.state.pageSize,
             current: this.state.current,
-            total: this.state.total,
+            total: this.state.total
           }
         },
         { withCredentials: true }
       )
       .then(res => {
         if (res.status === 200 && res.data.code === 0) {
-          this.setState(({
+          this.setState({
             articlesList: res.data.data.list,
             total: res.data.data.count,
-            isLoading: false
-          }));
-          
+            pageNum: this.state.pageNum
+            // isLoading: false
+          });
+
           if (this.state.total === this.state.articlesList.length) {
             this.setState({
               isLoadEnd: true
@@ -189,7 +151,24 @@ handleSearch = () => {
         console.error(err);
       });
   };
- 
+
+  onChange = (current, pageSize) => {
+    this.handleChangePageParam(current, pageSize);
+  };
+  onShowSizeChange = (current, pageSize) => {
+    this.handleChangePageParam(current, pageSize);
+  };
+  handleChangePageParam(pageNum, pageSize) {
+    this.setState(
+      {
+        pageNum,
+        pageSize
+      },
+      () => {
+        this.handleSearch();
+      }
+    );
+  }
 
   handleChangeSearchKeyword(event) {
     this.setState({
@@ -207,7 +186,7 @@ handleSearch = () => {
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={1000}
       >
-        <li key={item._id} className="have-img" style={{background: '#cfdfef', marginTop: 30}}>
+        <li key={item._id} className="have-img" style={{ background: '#cfdfef', marginTop: 30 }}>
           <a className="wrap-img" href="/" target="_blank">
             <img className="img-blur-done" data-src={item.img_url} src={item.img_url} alt="120" />
           </a>
@@ -233,7 +212,7 @@ handleSearch = () => {
       </ReactCSSTransitionGroup>
     ));
     return (
-      <div >
+      <div>
         <div className="left">
           <div style={{ display: 'flex', justifyContent: 'right' }}>
             <Search
@@ -245,19 +224,19 @@ handleSearch = () => {
             />
           </div>
           {this.props.location.pathname === '/home' ? (
-            <div className="car" style={{ backgroundImage:`url(${banner1})` }}>
-              <Carousel effect="fade" autoplay >
-                <div className="cari" style={{ backgroundImage:`url(${banner4})`}}>
+            <div className="car" style={{ backgroundImage: `url(${banner1})` }}>
+              <Carousel effect="fade" autoplay>
+                <div className="cari" style={{ backgroundImage: `url(${banner4})` }}>
                   <img className="imgcar" src={banner4} />
                 </div>
-                <div className="cari" style={{backgroundImage:`url(${banner7})`}}>
-                  <img className="imgcar" src={banner7}  />
+                <div className="cari" style={{ backgroundImage: `url(${banner7})` }}>
+                  <img className="imgcar" src={banner7} />
                 </div>
-                 <div className="cari" style={{backgroundImage:`url(${banner3})`}}>
-                  <img className="imgcar" src={banner3}  />
+                <div className="cari" style={{ backgroundImage: `url(${banner3})` }}>
+                  <img className="imgcar" src={banner3} />
                 </div>
-                <div className="cari" style={{backgroundImage:`url(${banner1})`}}>
-                  <img className="imgcar" src={banner1}  />
+                <div className="cari" style={{ backgroundImage: `url(${banner1})` }}>
+                  <img className="imgcar" src={banner1} />
                 </div>
               </Carousel>
             </div>
@@ -279,11 +258,11 @@ handleSearch = () => {
                   xl: 4,
                   xxl: 4
                 }}
-                dataSource={this.state.articlesList}              
+                dataSource={this.state.articlesList}
                 renderItem={item => (
-                  <List.Item >
+                  <List.Item>
                     <Card
-                      style={{ width: 275, height: 340, margin: '10px auto', background: '#eee'}}
+                      style={{ width: 275, height: 340, margin: '10px auto', background: '#eee' }}
                       cover={<img style={{ width: 275, height: 200 }} src={item.img_url} />}
                       actions={[
                         <Link target="_blank" to={`/menuDetail?article_id=${item._id}`}>
@@ -298,7 +277,7 @@ handleSearch = () => {
                       ]}
                     >
                       <Link to={`/menuDetail?article_id=${item._id}`}>
-                        <Meta style={{color: '#607dcc', height: 100}} title={item.title} description={item.desc} />
+                        <Meta style={{ color: '#607dcc', height: 100 }} title={item.title} description={item.desc} />
                       </Link>
                     </Card>
                   </List.Item>
@@ -308,12 +287,20 @@ handleSearch = () => {
               list
             )}
           </ul>
-          <Pagination style={{width: '60%', marginLeft:'20%', textAlign: 'center',paddingTop: '30px'}} defaultCurrent={1} onChange={this.onChange} showTotal={total=> `查询结果 ${total} `} pageSize={this.state.pageSize} current={this.state.current} total={this.state.total}/>
+          <Pagination
+            className="page"
+            defaultCurrent={this.state.pageNum}
+            onChange={this.onChange}
+            showSizeChanger
+            onShowSizeChange={this.onShowSizeChange}
+            showTotal={total => `查询结果 ${total} `}
+            pageSize={this.state.pageSize}
+            total={this.state.total}
+            current={this.state.pageNum}
+          />
           {this.state.isLoading ? <LoadingCom /> : ''}
           {this.state.isLoadEnd ? <LoadEndCom /> : ''}
-          
         </div>
-        
       </div>
     );
   }

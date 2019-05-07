@@ -102,7 +102,7 @@ class TimeLineCustom extends Component {
 
   handleSearch() {
     this.setState({
-      isLoading: true
+      // isLoading: true
     });
     https
       .get(
@@ -121,15 +121,13 @@ class TimeLineCustom extends Component {
         { withCredentials: true }
       )
       .then(res => {
-        // console.log(res);
-        // let num = this.state.pageNum;
         if (res.status === 200 && res.data.code === 0) {
-          this.setState(({
+          this.setState({
             newsList: res.data.data.list,
             total: res.data.data.count,
-            // pageNum: ++num,
-            isLoading: false
-          }));
+            pageNum: this.state.pageNum
+            // isLoading: false
+          });
           if (this.state.total === this.state.newsList.length) {
             this.setState({
               isLoadEnd: true
@@ -148,6 +146,23 @@ class TimeLineCustom extends Component {
       keyword: event.target.value
     });
   }
+  onChange = (current, pageSize) => {
+    this.handleChangePageParam(current, pageSize);
+  };
+  onShowSizeChange = (current, pageSize) => {
+    this.handleChangePageParam(current, pageSize);
+  };
+  handleChangePageParam(pageNum, pageSize) {
+    this.setState(
+      {
+        pageNum,
+        pageSize
+      },
+      () => {
+        this.handleSearch();
+      }
+    );
+  }
 
   render() {
     // console.log('blog articlesList:', this.props.articlesList);
@@ -159,9 +174,8 @@ class TimeLineCustom extends Component {
         transitionAppearTimeout={1000}
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={1000}
-        
       >
-        <li key={item._id} className="have-img" style={{background:'#cfdfef', marginTop: 30}}>
+        <li key={item._id} className="have-img" style={{ background: '#cfdfef', marginTop: 30 }}>
           <a className="wrap-img" href="/" target="_blank">
             <img className="img-blur-done" data-src={item.img_url} src={item.img_url} alt="120" />
           </a>
@@ -174,7 +188,6 @@ class TimeLineCustom extends Component {
               <Link target="_blank" to={`/newsDetail?news_id=${item._id}`}>
                 <Icon type="eye" theme="outlined" /> {item.meta.views}
               </Link>{' '}
-            
               <Link target="_blank" to={`/newsDetail?news_id=${item._id}`}>
                 <Icon type="heart" theme="outlined" /> {item.meta.likes}
               </Link>
@@ -197,7 +210,17 @@ class TimeLineCustom extends Component {
         }
         {this.state.newsTag_id ? <h3 className="left-title">{this.state.newsTag_name} 相关的新闻：</h3> : ''}
         <ul className="note-list">{this.state.total == 0 ? '' : list}</ul>
-         <Pagination style={{width: '60%',marginLeft: '20%', textAlign:'center',paddingTop: '30px'}} defaultCurrent={1} onChange={this.onChange} showTotal={total=> `查询结果 ${total} `} pageSize={this.state.pageSize} current={this.state.current} total={this.state.total}/>
+        <Pagination
+          className="page"
+          defaultCurrent={this.state.pageNum}
+          current={this.state.pageNum}
+          onChange={this.onChange}
+          showSizeChanger
+          onShowSizeChange={this.onShowSizeChange}
+          showTotal={total => `查询结果 ${total} `}
+          pageSize={this.state.pageSize}
+          total={this.state.total}
+        />
         {this.state.isLoading ? <LoadingCom /> : ''}
         {this.state.isLoadEnd ? <LoadEndCom /> : ''}
       </div>

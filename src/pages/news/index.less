@@ -16,10 +16,11 @@
   transition: opacity 500ms ease-in;
 }
 
-.left-title{
+.left-title {
   color: #0d596a;
   margin-top: 30px;
 }
+
 .left {
   .note-list {
     margin: 0;
@@ -121,4 +122,20 @@
 .example-appear.example-appear-active {
   opacity: 1;
   transition: opacity 1s ease-in;
+}
+
+.page {
+  width: 60%;
+  margin-left: 20%;
+  text-align: center;
+  padding-top: 30px;
+}
+
+@media only screen and (max-width: 620px) {
+  .page {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 30px;
+  }
 }
